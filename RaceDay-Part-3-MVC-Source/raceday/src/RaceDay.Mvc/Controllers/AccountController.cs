@@ -1,0 +1,8 @@
+using Microsoft.AspNetCore.Mvc;using RaceDay.Mvc.Models;using RaceDay.Mvc.Services;
+namespace RaceDay.Mvc.Controllers;
+public class AccountController:Controller{readonly RaceDayApiClient api;public AccountController(RaceDayApiClient a)=>api=a;
+[HttpGet]public IActionResult Login()=>View(new LoginVm());
+[HttpPost,ValidateAntiForgeryToken]public async Task<IActionResult> Login(LoginVm vm){if(!ModelState.IsValid)return View(vm);var r=await api.Send<User>(HttpMethod.Post,"api/auth/login",vm,true);if(!r.Ok||r.Data==null){ModelState.AddModelError("",r.Message);return View(vm);}HttpContext.Session.SetInt32("UserId",r.Data.UserId);HttpContext.Session.SetString("Role",r.Data.Role);HttpContext.Session.SetString("Name",r.Data.FirstName+" "+r.Data.LastName);return RedirectToAction("Index","Events");}
+[HttpGet]public IActionResult Register()=>View(new RegisterVm());
+[HttpPost,ValidateAntiForgeryToken]public async Task<IActionResult> Register(RegisterVm vm){if(!ModelState.IsValid)return View(vm);var r=await api.Send<User>(HttpMethod.Post,"api/auth/register",vm);if(!r.Ok){ModelState.AddModelError("",r.Message);return View(vm);}TempData["Success"]="Account created. Sign in to continue.";return RedirectToAction(nameof(Login));}
+[HttpPost,ValidateAntiForgeryToken]public async Task<IActionResult> Logout(){await api.SendNoData(HttpMethod.Post,"api/auth/logout");HttpContext.Session.Clear();return RedirectToAction("Index","Events");}}

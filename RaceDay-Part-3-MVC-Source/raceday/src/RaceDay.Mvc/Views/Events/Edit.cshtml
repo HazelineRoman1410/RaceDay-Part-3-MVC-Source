@@ -1,0 +1,2 @@
+@model EventVm
+@{ViewData["Title"]="Edit event";}<div class="page-heading"><span class="eyebrow">ORGANISER STUDIO</span><h1>Edit event</h1></div><div class="panel form-panel"><form method="post"><input asp-for="EventId" type="hidden"/>@await Html.PartialAsync("_Form",Model)<button class="btn btn-dark">Save changes</button> <a asp-action="Manage" class="btn btn-outline-secondary">Cancel</a></form></div>

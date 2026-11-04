@@ -1,0 +1,4 @@
+using RaceDay.Mvc.Services;
+var b=WebApplication.CreateBuilder(args); b.Services.AddControllersWithViews(); b.Services.AddHttpContextAccessor(); b.Services.AddDistributedMemoryCache(); b.Services.AddSession(o=>{o.Cookie.Name=".RaceDay.Mvc.Session";o.Cookie.HttpOnly=true;o.Cookie.IsEssential=true;o.IdleTimeout=TimeSpan.FromMinutes(30);});
+b.Services.AddHttpClient<RaceDayApiClient>(c=>{c.BaseAddress=new Uri(b.Configuration["RaceDayApi:BaseUrl"]??"http://localhost:5080/");c.Timeout=TimeSpan.FromSeconds(30);});
+var app=b.Build(); if(!app.Environment.IsDevelopment()){app.UseExceptionHandler("/Home/Error");app.UseHsts();} app.UseHttpsRedirection();app.UseStaticFiles();app.UseRouting();app.UseSession();app.MapControllerRoute("default","{controller=Events}/{action=Index}/{id?}");app.Run();

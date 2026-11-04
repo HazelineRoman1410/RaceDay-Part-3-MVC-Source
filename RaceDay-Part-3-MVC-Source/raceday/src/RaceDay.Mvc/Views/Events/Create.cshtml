@@ -1,0 +1,2 @@
+@model EventVm
+@{ViewData["Title"]="Create event";}<div class="page-heading"><span class="eyebrow">ORGANISER STUDIO</span><h1>Create an event</h1><p>Set the details. Your community will take it from here.</p></div><div class="panel form-panel"><form method="post">@await Html.PartialAsync("_Form",Model)<button class="btn btn-dark">Publish event</button> <a asp-action="Manage" class="btn btn-outline-secondary">Cancel</a></form></div>
