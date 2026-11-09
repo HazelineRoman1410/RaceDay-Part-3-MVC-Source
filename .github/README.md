@@ -44,8 +44,7 @@ CI/CD
 .github/workflows/part-3-ci.yml restores/builds the solution, runs the API unit tests and builds the MVC Docker image on pushes and pull requests. Push the project, open GitHub Actions, and capture a screenshot only after a successful green run.
 
 Video presentation
-Replace VIDEO_LINK_TO_BE_ADDED below with your own unlisted YouTube video after recording the actual app. VIDEO_LINK_TO_BE_ADDED
-
+ https://youtu.be/0T09PS41-XU 
 Evidence
 Use docs/part-3-evidence.md as the evidence register. Insert genuine screenshots of the running MVC pages, Azure Storage, Docker and the green GitHub Actions workflow.
 
